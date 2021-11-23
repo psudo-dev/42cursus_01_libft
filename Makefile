@@ -6,11 +6,12 @@
 #    By: rsetoue <rsetoue@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/19 20:40:41 by rsetoue           #+#    #+#              #
-#    Updated: 2021/11/18 14:36:01 by rsetoue          ###   ########.fr        #
+#    Updated: 2021/11/23 18:38:26 by rsetoue          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 LIBFT :=			libft
+LIBFT_A :=			libft.a
 
 BIN_DIR :=			bin
 SRC_DIR :=			src
@@ -21,7 +22,7 @@ ALL_DIR :=			${BIN_DIR} \
 					${OBJ_DIR} \
 					${INC_DIR}
 
-NAME =				${BIN_DIR}/${LIBFT}.a
+NAME =				${BIN_DIR}/${LIBFT_A}
 
 SRC_FILES =			ft_atoi.c \
 					ft_calloc.c \
@@ -96,6 +97,8 @@ ${NAME}: ${ALL_DIR} ${OBJ}
 	${MSG_INDEX_LIB}
 	${RANLIB} ${NAME}
 	${DONE}
+	@cp -f ${NAME} .
+	${MSG_FINISHED}
 
 ${OBJ_DIR}/%.o: ${SRC_DIR}/%.c ${LIBFT_H}
 	${CC} ${CFLAGS} -I${INC_DIR} -c $< -o $@
@@ -106,10 +109,12 @@ ${ALL_DIR}:
 	@mkdir -p ${ALL_DIR}
 
 clean: clean_build
+	${MSG_FINISHED}
 
 fclean: clean_build clean_program
+	${MSG_FINISHED}
 
-re: msg_rebuilding fclean all
+re: msg_rebuilding clean_build clean_program all
 
 .PHONY: all clean fclean re
 
@@ -119,7 +124,7 @@ clean_build: msg_cleaning
 	${DONE}
 
 clean_program: msg_fcleaning
-	${RM} ${NAME}
+	${RM} ${NAME} ${LIBFT_A}
 	${DONE}
 
 # ~ MESSAGES
@@ -157,6 +162,8 @@ MSG_CLEANING =		${MSG} ${FG_BLUE} "Cleaning ${LIBFT} Build..." \
 					${RESET} ${NO_NL}
 MSG_FCLEANING =		${MSG} ${FG_BLUE} "Cleaning ${LIBFT} Program..." \
 					${RESET} ${NO_NL}
+MSG_FINISHED	=	${MSG} ${FG_GREEN} "Finished!" \
+					${RESET}
 
 msg_compiling:
 	${MSG_COMPILING}
