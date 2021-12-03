@@ -2,9 +2,7 @@
 
 #### Bonus A  <!-- omit in toc -->
 
-libft project for [42 | São Paulo](https://github.com/42sp)
-
-[École 42 | 42 School](https://github.com/42School):
+libft project for [42 | São Paulo](https://github.com/42sp) / [École 42](https://github.com/42School)
 
 - ***[Level 01](https://github.com/psudo-dev/42cursus_index)***
   - ***01. Libft***
@@ -15,6 +13,7 @@ libft project for [42 | São Paulo](https://github.com/42sp)
 - [Mandatory Part](#mandatory-part)
   - [Part 1](#part-1)
   - [Part 2](#part-2)
+- [Bonus Part](#bonus-part)
 - [Usage](#usage)
 - [libft](#libft)
   - [Directories and Files](#directories-and-files)
@@ -25,13 +24,13 @@ libft project for [42 | São Paulo](https://github.com/42sp)
 
 ## Project
 
-This project consists in recreating the some basic but very practical functions for working with C language. We are are only allowed to use **`write`**, **`malloc`** and **`free`**.
+This project consists in recreating the some basic but very practical functions for working with C language. We are are only allowed to use **`write`**, **`malloc`** and **`free`** and only in some cases.
 
-If **`lib`** stands for library, is **`ft`** = **f**orty **t**wo?
+> If **`lib`** stands for library, is **`ft`** = forty two?
 
 So we are basically creating our own library for future use. I did all the **Mandatory** and **Bonus** parts and then started to add any function that I thought could be useful in the future.
 
-#### malloc() and free() <!-- omit in toc -->
+#### _malloc( )_ and _free( )_ <!-- omit in toc -->
 
 Memory allocation and deallocation functions.
 
@@ -39,7 +38,7 @@ Memory allocation and deallocation functions.
 #include <stdlib.h>
 ```
 
-#### write() <!-- omit in toc -->
+#### _write( )_ <!-- omit in toc -->
 
 Writes `nbyte` from the `buffer` pointed by `buf` to the `file descriptor` `fd`.
 
@@ -59,9 +58,11 @@ In this first part, you must re-code a set of the libc functions, as defined in 
 
 In this second part, you must code a set of functions that are either not included in the libc, or included in a different form. Some of these functions can be useful to write Part 1’s functions.
 
-## Bonus Part  <!-- omit in toc -->
+## Bonus Part
 
-Having functions to manipulate memory and strings is very useful, but you’ll soon discover that having functions to manipulate lists is even more useful.
+Having functions to manipulate memory and strings is very useful, but you’ll soon discover that having functions to manipulate lists is even more useful
+
+---
 
 ## Makefile <!-- omit in toc -->
 
@@ -91,43 +92,25 @@ git clone https://github.com/psudo-dev/42cursus_01_libft.git <DIR_NAME>
 
 ## libft
 
+I think that the most interesting part was the **bonus**, learning about **`struct`** and **`linked list`** was very useful. I used either or both in all my projects and understanding linked list also helped me understand better **`pointers`** and **`memory allocation`**.
+
 ### Directories and Files
 
-> - `Makefile` _**Makefile** for **libft** project_
+> - `Makefile` _Makefile for libft project_
 > - `inc/`
->   - `libft.h` _it's the **header** file for this project_
+>   - `libft.h` _it's the header file_
 > - `src/`
->   - `libft.c` _**libft()**_
->   - `printers.c` _printing functions_
->   - `utils.c` _supporting functions for the project_
->   - `structs.c` _all the struct functions to handle data_
->   - `specifiers.c` _functions to handle incoming data check for the specifiers_
->     - `type_char.c` _**char**, **%** and **string**_
->     - `type_int.c` _**int** and **unsigned int**_
->     - `type_char.c` _**lower case hex**, **upper case hex** and **pointer**_
->     - `flags.c` _functions to check **flags**_
->     - `precision.c` _functions to check and handle **precision**_
->     - `width.c` _functions to check and handle **width**_
-> - `test/` _directory for the testers_
-
-#### Bonus: 200% Extra Work <!-- omit in toc -->
-
-For the bonus part, we had to implement **`width`**, **`precision`** and a few **`flags`**, which might sound simple but it changes everything.
-
-They say that in case you are going to do the **Bonus part**, you should approach the **Mandatory** part already thinking about the bonus. That would be great if you could build upon what you already did in the mandatory part, which is what we usually expect out of the Bonus Part, but that's not the case.
-
-In the end you basically have to redo the whole project, it would have been best to simply say to those that intend to make the bonus part to jump straight to the bonus or maybe they should have kept the **`width`** and the **`Bonus B`** flags in the **Mandatory** part and the **Bonus** would be the **`Bonus A`**.
-
-The fact that you have to handle a lot of different things interacting with different priorities and print things before, after and in the middle of what you've done in the mandatory part completely changes how you think this through compared to the Mandatory part.
-
-> It makes no sense to call it a bonus when it's basically double the work of the mandatory. A Bonus should be something like 20% extra work, not 200%.
+>   - _source `*.c` files_
 
 ## Tests
 
-It's passing in all 2,385,584 tests of the following testers:
+At the time it was passing in all 3 tests, but I've made some changes afterwards so it might not be passing in everything now.
 
-- [Paulo Santana](https://github.dev/paulo-santana/libft_tester)
-- [Tripouille](https://github.dev/Tripouille/printfTester)
+- [Libft Unit Test](https://github.com/alelievr/libft-unit-test.git)
+- [Tripouille](https://github.com/Tripouille/libftTester)
+- [Libftest](https://github.com/jtoty/Libftest)
+
+_<sub>I didn't implement a command to run the [Libftest](https://github.com/jtoty/Libftest) because it asks for the project folder, to make it work I would have to make a command to change the config file and some other adaptations so... I didn't, I've some other things to do, even more because I wasn't even going to implement the commands for testing... hahahaha...</sub>_
 
 #### Commands <!-- omit in toc -->
 >
@@ -137,20 +120,17 @@ It's passing in all 2,385,584 tests of the following testers:
 > - **`make a`** *run `all` tests*
 > - **`make c`** *clean test object files*
 > - **`make f`** *clean **`*.c`**, **`*.o`** and **`*,h`** and `libftprintf.a`*
+> - **`make r`** *rebuild `test` files*
 > - **`make d`** *delete `test` files*
 
 ## Issues and Suggestions
 
--   Feel free to contact me or create an issue!
--   For more information, [click here](https://github.com/psudo-dev/42cursus_03_printf/issues/new/choose).
+-   Feel free to contact me or create an [issue](https://github.com/psudo-dev/42cursus_03_printf/issues/new/choose)!
 
 ## References and Links
 
 - <https://github.com/42sp>
 - <https://github.com/42School>
-- <https://github.dev/julioakira/42sp_libft>
-- <https://github.dev/paulo-santana/libft_tester>
-- <https://github.dev/Tripouille/printfTester>
 
 ## License
 
