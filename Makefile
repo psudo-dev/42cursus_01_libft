@@ -6,7 +6,7 @@
 #    By: rsetoue <rsetoue@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/19 20:40:41 by rsetoue           #+#    #+#              #
-#    Updated: 2021/11/23 18:38:26 by rsetoue          ###   ########.fr        #
+#    Updated: 2021/12/03 22:22:53 by rsetoue          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ BIN_DIR :=			bin
 SRC_DIR :=			src
 OBJ_DIR :=			build
 INC_DIR :=			inc
+TEST_DIR :=			test
 ALL_DIR :=			${BIN_DIR} \
 					${SRC_DIR} \
 					${OBJ_DIR} \
@@ -86,7 +87,8 @@ CC =				@clang
 CFLAGS =			-Wall -Wextra -Werror
 AR =				@ar -rc
 RANLIB =			@ranlib
-RM =				@rm -f
+RM_FILE :=			@rm -f
+RM_FOLDER :=		@rm -rf
 MSG =				@echo
 
 # < RECIPES
@@ -116,16 +118,110 @@ fclean: clean_build clean_program
 
 re: msg_rebuilding clean_build clean_program all
 
+norm:
+	${MSG} ${FG_LAV} "running norminette" ${RESET}
+	@norminette -R CheckForbiddenSourceHeader
+	${MSG_FINISHED}
+	${MSG}
+	${MSG}
+	${MSG}
+
+retest: rebuild_test
+
 .PHONY: all clean fclean re
 
 # : CLEANING
 clean_build: msg_cleaning
-	${RM} ${OBJ}
+	${RM_FILE} ${OBJ}
 	${DONE}
 
 clean_program: msg_fcleaning
-	${RM} ${NAME} ${LIBFT_A}
+	${RM_FILE} ${NAME} ${LIBFT_A}
 	${DONE}
+
+# ? TESTS
+
+TRIPOUILLE_DIR :=	${TEST_DIR}/tripouille
+UNIT_DIR :=			${TEST_DIR}/unit
+LIBFTEST_DIR :=			${TEST_DIR}/libftest
+
+${TRIPOUILLE_DIR}:
+	@git clone \
+	https://github.com/Tripouille/libftTester.git \
+	${TRIPOUILLE_DIR}
+	${MSG_FINISHED}
+
+${UNIT_DIR}:
+	@git clone \
+	https://github.com/alelievr/libft-unit-test.git \
+	${UNIT_DIR}
+	${MSG_FINISHED}
+
+${LIBFTEST_DIR}:
+	@git clone \
+	https://github.com/jtoty/Libftest.git \
+	${LIBFTEST_DIR}
+	${MSG_FINISHED}
+
+test: norm ${UNIT_DIR} ${LIBFTEST_DIR} ${TRIPOUILLE_DIR}
+	${MAKE} -C ${TEST_DIR}
+	${MAKE} -C ${UNIT_DIR}
+t: test
+
+mandatory_tests: test ${UNIT_DIR} ${LIBFTEST_DIR} ${TRIPOUILLE_DIR}
+	${MSG} ${FG_LAV} "running libft unit tests: MANDATORY" ${RESET}
+	${MAKE} f -C ${UNIT_DIR}
+	${MSG} ${FG_LAV} "running tripouille tests: MANDATORY" ${RESET}
+	${MAKE} m -C ${TRIPOUILLE_DIR}
+m: mandatory_tests
+
+bonus_tests: ${UNIT_DIR} ${LIBFTEST_DIR} ${TRIPOUILLE_DIR}
+	${MSG} ${FG_LAV} "running libft unit tests: BONUS" ${RESET}
+	${MAKE} f -C ${UNIT_DIR}
+	${MSG} ${FG_LAV} "running tripouille tests: BONUS" ${RESET}
+	${MAKE} b -C ${TRIPOUILLE_DIR}
+b: bonus_tests
+
+all_tests: ${UNIT_DIR} ${LIBFTEST_DIR} ${TRIPOUILLE_DIR}
+	${MSG} ${FG_LAV} "running libft unit tests: ALL" ${RESET}
+	${MAKE} f -C ${UNIT_DIR}
+	${MSG} ${FG_LAV} "running tripouille tests: ALL" ${RESET}
+	${MAKE} a -C ${TRIPOUILLE_DIR}
+a: all_tests
+
+clean_test:
+	${MSG} ${FG_PINK} "make clean_test tests" ${RESET}
+	${MAKE} clean -C ${TEST_DIR}
+c: clean_test
+
+fclean_test:
+	${MSG} ${FG_PINK} "make fclean_test tests" ${RESET}
+	${MAKE} fclean -C ${TEST_DIR}
+f: fclean_test
+
+rebuild_test:
+	${MSG} ${FG_PINK} "make rebuild_test tests" ${RESET}
+	${MAKE} re -C ${TEST_DIR}
+	${MSG_FINISHED}
+r: rebuild_test
+
+delete_test: fclean_test
+	${MSG} ${FG_PINK} "Removing ${TRIPOUILLE_DIR} Folder" ${RESET} ${NO_NL}
+	${RM_FOLDER} ${TRIPOUILLE_DIR}
+	${DONE}
+	${MSG} ${FG_PINK} "Removing ${UNIT_DIR} Folder" ${RESET} ${NO_NL}
+	${RM_FOLDER} ${UNIT_DIR}
+	${DONE}
+	${MSG} ${FG_PINK} "Removing ${LIBFTEST_DIR} Folder" ${RESET} ${NO_NL}
+	${RM_FOLDER} ${LIBFTEST_DIR}
+	${DONE}
+	${RM_FILE} ${TEST_DIR}/libft.h ${TEST_DIR}/${LIBFT}/libft.h
+	${RM_FILE} ${TEST_DIR}/libft.a ${TEST_DIR}/${LIBFT}/libft.a
+	${MSG_FINISHED}
+d: delete_test
+
+exit: fclean delete_test
+e: exit
 
 # ~ MESSAGES
 FG_GREEN :=			"\033[38;2;73;242;73m"
