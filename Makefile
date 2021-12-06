@@ -6,7 +6,7 @@
 #    By: rsetoue <rsetoue@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/19 20:40:41 by rsetoue           #+#    #+#              #
-#    Updated: 2021/12/02 22:32:12 by rsetoue          ###   ########.fr        #
+#    Updated: 2021/12/03 22:22:53 by rsetoue          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -125,7 +125,6 @@ norm:
 	${MSG}
 	${MSG}
 	${MSG}
-	${MSG}
 
 retest: rebuild_test
 
@@ -139,6 +138,8 @@ clean_build: msg_cleaning
 clean_program: msg_fcleaning
 	${RM_FILE} ${NAME} ${LIBFT_A}
 	${DONE}
+
+# ? TESTS
 
 TRIPOUILLE_DIR :=	${TEST_DIR}/tripouille
 UNIT_DIR :=			${TEST_DIR}/unit
