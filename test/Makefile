@@ -6,7 +6,7 @@
 #    By: rsetoue <rsetoue@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/05 16:36:06 by rsetoue           #+#    #+#              #
-#    Updated: 2021/12/02 22:30:57 by rsetoue          ###   ########.fr        #
+#    Updated: 2021/12/07 20:24:45 by rsetoue          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ ${NAME}: ${INC}
 	${RANLIB} ${NAME}
 	@cp ${NAME} ${LIBFT}
 	${DONE}
-	${MSG} ${FG_GREEN} "Finished!" ${RESET}
+	${MSG_FINISHED}
 
 ${INC}: ../inc/${LIBFT_H}
 	@mkdir -p ${INC}
@@ -81,15 +81,11 @@ re: rebuilding_msg fclean all
 
 rebuilding_msg:
 	${MSG} ${FG_LAV} "Rebuilding Tests" ${RESET}
-	
+
 norm:
 	${MSG} ${FG_LAV} "running norminette" ${RESET}
 	@norminette -R CheckForbiddenSourceHeader
 	${MSG_FINISHED}
-	${MSG}
-	${MSG}
-	${MSG}
-	${MSG}
 
 .PHONY: all clean fclean
 
@@ -113,3 +109,61 @@ DONE :=				${MSG} ${FG_GREEN} "✔" ${RESET}
 # >					;R;G;B
 # <					m
 # ?					\033[0m" (reset)
+
+MSG_FINISHED	=	${MSG} ${FG_GREEN} "Finished!" \
+					${RESET} \
+					${42_HEADER}
+msg_finished:
+	${MSG_FINISHED}
+
+define 42_LOGO
+;
+@echo
+@echo
+@echo "                              ▄█████████▀      ████████▀    ██████████"
+@echo "                            ▄█████████▀        ██████▀      ██████████"
+@echo "                          ▄█████████▀          ████▀        ██████████"
+@echo "                        ▄█████████▀            ██▀          ██████████"
+@echo "                      ▄█████████▀              ▀           ▄█████████▀"
+@echo "                    ▄█████████▀                          ▄█████████▀"
+@echo "                  ▄█████████▀                          ▄█████████▀"
+@echo "                ▄█████████▀                          ▄█████████▀"
+@echo "              ▄█████████▀                          ▄█████████▀"
+@echo "            ▄█████████▀                          ▄█████████▀"
+@echo "          ▄██████████▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄      ▄█████████▀           ▄   "
+@echo "          ███████████████████████████████      ██████████          ▄██"
+@echo "          ███████████████████████████████      ██████████        ▄████"
+@echo "          ███████████████████████████████      ██████████      ▄██████"
+@echo "                               ██████████      ██████████    ▄████████"
+@echo "                               ██████████"
+@echo "                               ██████████"
+@echo "                               ██████████      █"
+@echo "                               ▀▀▀▀▀▀▀▀▀▀      █             ▄▄  ▄▄"
+@echo "                                               █     ▄▀▀▀▀▄ ▀  ▀▀             █▀▀▀▀▄              ▀█"
+@echo "                                               █     ▀▄▄▄▄    ▀▀▀▄  ▄▀▀▀▄     █▄▄▄▄▀  ▀▀▀▄  █   █  █   ▄▀▀▀▄"
+@echo "                                               █     ▄    █  ▄▀▀▀█  █   █     █      ▄▀▀▀█  █   █  █   █   █"
+@echo "                                               █      ▀▀▀▀    ▀▀▀▀   ▀▀▀      ▀       ▀▀▀▀   ▀▀▀    ▀▀  ▀▀▀"
+@echo "                                               █"
+@echo "                                               ▀"
+@echo
+endef
+
+define 42_HEADER
+;
+@echo ""
+@echo ""
+@echo "                               ▄"
+@echo "                               █"
+@echo "         ▄▄▄▄   ▄▄▄▄ ▄▄▄▄      █"
+@echo "       ▄███▀    ██▀  ████      █             ▄▄  ▄▄"
+@echo "     ▄███▀      ▀   ▄███▀      █     ▄▀▀▀▀▄ ▀  ▀▀             █▀▀▀▀▄              ▀█"
+@echo "   ▄███▀          ▄███▀        █     ▀▄▄▄▄    ▀▀▀▄  ▄▀▀▀▄     █▄▄▄▄▀  ▀▀▀▄  █   █  █   ▄▀▀▀▄"
+@echo " ▄████▄▄▄▄▄▄▄   ▄███▀   ▄      █     ▄    █  ▄▀▀▀█  █   █     █      ▄▀▀▀█  █   █  █   █   █"
+@echo " ████████████   ████  ▄██      █      ▀▀▀▀    ▀▀▀▀   ▀▀▀      ▀       ▀▀▀▀   ▀▀▀▀   ▀▀  ▀▀▀"
+@echo "         ████   ▀▀▀▀ ▀▀▀▀      █"
+@echo "         ████                  █"
+@echo "                               █"
+@echo
+@echo
+endef
+
